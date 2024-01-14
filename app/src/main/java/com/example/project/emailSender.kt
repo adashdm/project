@@ -17,15 +17,18 @@ class emailSender : AppCompatActivity() {
             val textMessageEditText = findViewById<EditText>(R.id.editTextTextMultiLine2)
             val recipientEmail = emailEditText.text.toString()
             val textMessage = textMessageEditText.text.toString()
-            val uriText = "mailto:$recipientEmail" +
-                    "?subject=" + Uri.encode("Subject") +
-                    "&body=" + Uri.encode(textMessage)
-
-            val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse(uriText)
-            }
-            startActivity(Intent.createChooser(emailIntent, "Send feedback"))
+            sendEmail(recipientEmail, textMessage)
             finish()
         }
+    }
+    fun sendEmail(recipientEmail : String, textMessage : String) {
+        val uriText = "mailto:$recipientEmail" +
+                "?subject=" + Uri.encode("Subject") +
+                "&body=" + Uri.encode(textMessage)
+
+        val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse(uriText)
+        }
+        startActivity(Intent.createChooser(emailIntent, "Send feedback"))
     }
 }
