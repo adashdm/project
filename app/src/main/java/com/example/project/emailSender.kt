@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 
 
 class emailSender : AppCompatActivity() {
@@ -17,11 +18,14 @@ class emailSender : AppCompatActivity() {
             val textMessageEditText = findViewById<EditText>(R.id.editTextTextMultiLine2)
             val recipientEmail = emailEditText.text.toString()
             val textMessage = textMessageEditText.text.toString()
-            sendEmail(recipientEmail, textMessage)
-            finish()
+            if (recipientEmail.isNotEmpty() && textMessage.isNotEmpty()) {
+                sendEmail(recipientEmail, textMessage)
+                finish()
+            }
+            else Toast.makeText(this, "Заповніть поля!", Toast.LENGTH_SHORT).show()
         }
     }
-    fun sendEmail(recipientEmail : String, textMessage : String) {
+    private fun sendEmail(recipientEmail : String, textMessage : String) {
         val uriText = "mailto:$recipientEmail" +
                 "?subject=" + Uri.encode("Subject") +
                 "&body=" + Uri.encode(textMessage)
